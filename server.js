@@ -16,7 +16,7 @@ const gatitos = [
     poster: "angora.jpg", 
     comida_favorita: "atun", 
     edad: 2, 
-    lugar_dormir: ["alfombra", "colcha rosada"]
+    lugar_dormir: ["alfombra", "colcha rosada","en el techo"]
   },
   { 
     id: 2,
@@ -32,7 +32,7 @@ const gatitos = [
     poster: "siames.jpg", 
     comida_favorita: "croquetas gatsy", 
     edad: 1, 
-    lugar_dormir: ["debajo del sofa", "en su camita"]
+    lugar_dormir: ["debajo del sofa"]
   }
 ]
 
@@ -52,9 +52,23 @@ app.get("/:codigo", (req, res) => {
   if(gatoenviar != undefined)
     res.render("detalles", { gato : gatoenviar });
     else
-    res.send("vuelve a escribir bien");
+    res.send(
+      `<!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Error 404</title>
+        <link rel="stylesheet" href="css/stylos_error.css">
+      </head>
+      <body>
+        
+      <a href="cats"><img class="error" src="/images/404.png" alt="error404"></a>
+        
+      </body>
+      </html>`);
   
-});
+  });
 
 app.listen( port, () => console.log(`Listening on port: ${port}`) );
 

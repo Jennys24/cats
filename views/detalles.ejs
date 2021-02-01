@@ -27,8 +27,9 @@
     <div class="contenido">
       <h2>Lugares de Dormir: </h2>
       <ul>
-        <li><%= gato.lugar_dormir[0] %></li>
-        <li><%= gato.lugar_dormir[1] %></li>
+        <% for (lugar of gato.lugar_dormir) { %>
+        <li><%= lugar %></li>
+        <% } %>
       </ul>
     
 
