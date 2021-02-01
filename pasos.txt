@@ -1,0 +1,105 @@
+Pasos para crear un proyecto con Node y Express.
+
+1.- Crear la carpeta nueva.
+2.- Crear el archivo asociado al servidor. donde comienza todo.
+	server.js  ||  servidor.js 
+
+3.- Copiar lo necesario para configurar nuestro servidor express: 
+
+const express = require("express");
+const app = express();
+const port = 8000;
+
+//    aqui van las configuraciones (los get, use, post, 
+//    configuracion de carpeta estaticas (punto 8), etc.)
+
+app.listen( port, () => console.log(`Listening on port: ${port}`) );
+
+
+
+4.- configurar que el proyecto(carpeta) usará paquetes de NODE. es decir NPM. 
+
+	npm init   ||   npm init -y (omite las preguntas). 
+
+5.- Installar el paquete express; ejecutar en el terminal : 
+npm install express
+
+
+6.- ejecutar el servidor: 
+	node <<nombre elegido en punto 2>>  ej: node server.js
+
+	para salir CONTROL + C 
+
+7.- para no reiniciar con control + c a cada rato el servidor cada vez que exista cambios: 
+
+(si nunca ha ejecutado nodemon en cualquier proyecto, 
+primero instalar en modo global: 
+npm install -g nodemon)
+
+	nodemon <<nombre elegido en punto 2>>  ej: nodemon server.js
+
+	para salir CONTROL + C 
+
+8.- Para configurar una carpeta estatica. es decir que lo que tenga dentro, quedará disponible en 
+nuestro servidor. se hace de esta forma: 
+
+agregar despues de crear express: 
+
+//CONFIGURAMOS QUE LA CARPETA xxxxxxxxxx SEA ESTATICA.
+app.use(express.static(__dirname + "/xxxxxxxxxx"));
+
+(Recordar crear la carpeta xxxxxxxxxx)
+
+
+
+//////////////////////// RUTAS //////////////////////
+
+1.- se debe tener lo mismo al pasos anteriores. 
+
+app.get("ACA VA LA RUTA", (req,res)=>{
+
+	// que es lo que retornaremos o haremos...
+
+	res.json({ mensaje: "ok" });
+	res.send("<h1>desde el send</h1>");
+	res.render("una vista");
+
+
+});
+
+2.- crear una vista dentro de la nueva carpeta que definamos como vista.
+... creamos por ejemplo la carpeta views. 
+
+3.- instalar la libreria o depencia EJS. para usar ese motor de template.
+
+npm install ejs
+
+4.- configurar el uso del ejs ... colocar en server.js
+
+// Esto establece la ubicación donde express buscará la vista ejs
+app.set('views', __dirname + '/views'); 
+// Ahora configuremos el motor de visualización para que express sepa que estamos usando ejs en lugar de otro motor de jade
+app.set('view engine', 'ejs');
+
+
+const usuarios = [
+    { nombre: "Reimu",  apellido: "Hakurei"    },
+    { nombre: "Marisa", apellido: "Kirisame"   },
+    { nombre: "Sanae",  apellido: "Kochiya"    },
+    { nombre: "Sakuya", apellido: "Izayoi"     },
+    { nombre: "Momiji", apellido: "Inubashiri" }
+];
+
+// creamos una nueva RUTA llama /api/usuarios de tipo GET. 
+// que solo retorna un JSON en el response (res). 
+app.get("/api/usuarios", (req,res) =>{
+
+    let objetoSalida = {
+        lista: usuarios,
+        quien: "Francisco"
+    }
+
+
+    res.json(objetoSalida);
+
+});
